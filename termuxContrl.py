@@ -1,11 +1,15 @@
-import socket, sys, tty, termios
+import socket
+import sys
+import termios
+import tty
 
 UDP_IP = "192.168.4.1"
 UDP_PORT = 14550
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+# Hàm đọc 1 ký tự không cần Enter
 def getch():
-    """Đọc 1 ký tự ngay khi nhấn (Linux/Termux)"""
     fd = sys.stdin.fileno()
     old_settings = termios.tcgetattr(fd)
     try:
@@ -15,10 +19,14 @@ def getch():
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
     return ch
 
-print("Nhấn phím để điều khiển: r/f/a/d/w/s/x/z, nhấn q để thoát")
+print("Điều khiển drone bằng bàn phím trong Termux:")
+print(" w: FRONT | s: BACK | a: YAW_LEFT | d: YAW_RIGHT")
+print(" r: UP    | f: DOWN | z: LEFT     | x: RIGHT")
+print(" q: Quit")
 
 while True:
     key = getch()
+
     if key == "r":
         sock.sendto(b"UP", (UDP_IP, UDP_PORT))
         print("UP")
@@ -32,16 +40,14 @@ while True:
         sock.sendto(b"YAW_RIGHT", (UDP_IP, UDP_PORT))
         print("YAW_RIGHT")
     elif key == "w":
-        sock.sendto(b"YAW_FRONT", (UDP_IP, UDP_PORT))
-        print("YAW_FRONT")
+        sock.sendto(b"FRONT", (UDP_IP, UDP_PORT))
+        print("FRONT")
     elif key == "s":
-        sock.sendto(b"YAW_BACK", (UDP_IP, UDP_PORT))
-        print("YAW_BACK")
+        sock.sendto(b"BACK", (UDP_IP, UDP_PORT))
+        print("BACK")
     elif key == "x":
         sock.sendto(b"RIGHT", (UDP_IP, UDP_PORT))
         print("RIGHT")
     elif key == "z":
         sock.sendto(b"LEFT", (UDP_IP, UDP_PORT))
         print("LEFT")
-
-
