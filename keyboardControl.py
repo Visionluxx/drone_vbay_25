@@ -6,7 +6,6 @@ UDP_PORT = 14550
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-
 while True:
     if keyboard.is_pressed("r"):
         sock.sendto(b"UP", (UDP_IP, UDP_PORT))
@@ -21,11 +20,11 @@ while True:
         sock.sendto(b"YAW_RIGHT", (UDP_IP, UDP_PORT))
         print("YAW_RIGHT")
     elif keyboard.is_pressed("w"):
-        sock.sendto(b"YAW_FRONT", (UDP_IP, UDP_PORT))
-        print("YAW_FRONT")
+        sock.sendto(b"FRONT", (UDP_IP, UDP_PORT))   # đổi lại
+        print("FRONT")
     elif keyboard.is_pressed("s"):
-        sock.sendto(b"YAW_BACK", (UDP_IP, UDP_PORT))
-        print("YAW_BACK")
+        sock.sendto(b"BACK", (UDP_IP, UDP_PORT))    # đổi lại
+        print("BACK")
     elif keyboard.is_pressed("x"):
         sock.sendto(b"RIGHT", (UDP_IP, UDP_PORT))
         print("RIGHT")
