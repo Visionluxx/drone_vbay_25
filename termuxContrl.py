@@ -43,6 +43,5 @@ while True:
     elif key == "z":
         sock.sendto(b"LEFT", (UDP_IP, UDP_PORT))
         print("LEFT")
-    elif key == "q":   # thêm phím thoát
-        print("Thoát chương trình")
-        break
+
+
